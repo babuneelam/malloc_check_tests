@@ -104,7 +104,7 @@ systemcall_unaddressable_bytes()
   printf("Please type a bunch of characters and hit enter.\n");
   read(0, buf, 1000);              // Error, read data overflows buffer
   write(1, buf, 1000);             // Error, data comes from past end of buffer
-  free(buf);
+  //free(buf);
 }
 
 int
