@@ -2,6 +2,8 @@
 #include <malloc.h>
 #include <string.h>
 
+int global_array[100] = {-1};
+
 void
 unintialized_use()
 {
@@ -107,6 +109,18 @@ systemcall_unaddressable_bytes()
   //free(buf);
 }
 
+int stk_overrun()
+{
+  int stack_array[100];
+  stack_array[1] = 0;
+  return stack_array[200];
+}
+
+int glob_buff_overrun()
+{
+  return global_array[200];
+}
+
 int
 main(int argc, char**argv)
 {
@@ -136,6 +150,8 @@ main(int argc, char**argv)
       case 7: memcpy_overlapping_src_dst(); break;
       case 8: double_free(); break;
       case 9: systemcall_unaddressable_bytes(); break;
+      case 10: stk_overrun(); break;
+      case 11: glob_buff_overrun(); break;
       default: printf("No test or invalid test specified (only 1--9 are valid).");
                return -1;
     }
